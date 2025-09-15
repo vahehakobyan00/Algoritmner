@@ -1,0 +1,47 @@
+using System;
+
+public class HelloWorld
+{
+    static void QuickSort(int[] array, int left, int right)
+    {
+        if (left < right)
+        {
+            int pivotIndex = Partition(array, left, right);
+            QuickSort(array, left, pivotIndex - 1);
+            QuickSort(array, pivotIndex + 1, right);
+        }
+    }
+
+    static int Partition(int[] array, int left, int right)
+    {
+        int pivot = array[right];
+        int i = left - 1;
+
+        for (int j = left; j < right; j++)
+        {
+            if (array[j] < pivot)
+            {
+                i++;
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
+        int temp2 = array[i + 1];
+        array[i + 1] = array[right];
+        array[right] = temp2;
+
+        return i + 1;
+    }
+
+    public static void Main(string[] args)
+    {
+        int[] numbers = { 34, 7, 23, 32, 5, 62 };
+        Console.WriteLine("Before sorting: " + string.Join(", ", numbers));
+
+        QuickSort(numbers, 0, numbers.Length - 1);
+
+        Console.WriteLine("After sorting: " + string.Join(", ", numbers));
+    }
+}
