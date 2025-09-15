@@ -1,0 +1,66 @@
+using System;
+
+public class HelloWorld
+{
+    static void MergeSort(int[] array, int left, int right)
+    {
+        if (left < right)
+        {
+            int middle = (left + right) / 2;
+
+            MergeSort(array, left, middle);
+
+            MergeSort(array, middle + 1, right);
+
+            Merge(array, left, middle, right);
+        }
+    }
+
+    static void Merge(int[] array, int left, int middle, int right)
+    {
+        int leftSize = middle - left + 1;
+        int rightSize = right - middle;
+
+        int[] leftArray = new int[leftSize];
+        int[] rightArray = new int[rightSize];
+
+
+        Array.Copy(array, left, leftArray, 0, leftSize);
+        Array.Copy(array, middle + 1, rightArray, 0, rightSize);
+
+        int i = 0, j = 0, k = left;
+
+
+        while (i < leftSize && j < rightSize)
+        {
+            if (leftArray[i] <= rightArray[j])
+            {
+                array[k++] = leftArray[i++];
+            }
+            else
+            {
+                array[k++] = rightArray[j++];
+            }
+        }
+
+        while (i < leftSize)
+        {
+            array[k++] = leftArray[i++];
+        }
+
+        while (j < rightSize)
+        {
+            array[k++] = rightArray[j++];
+        }
+    }
+
+    public static void Main(string[] args)
+    {
+        int[] numbers = { 34, 7, 23, 32, 5, 62 };
+        Console.WriteLine("Before sorting: " + string.Join(", ", numbers));
+
+        MergeSort(numbers, 0, numbers.Length - 1);
+
+        Console.WriteLine("After sorting: " + string.Join(", ", numbers));
+    }
+}
