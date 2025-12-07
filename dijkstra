@@ -1,0 +1,20 @@
+import heapq
+def dijkstra(graph, start):
+    q, d = [(0, start)], {start: 0}
+    while q:
+        c, v = heapq.heappop(q)
+        for n, w in graph[v].items():
+            x = c + w
+            if x < d.get(n, float('inf')):
+                d[n] = x
+                heapq.heappush(q, (x, n))
+    return d
+graph = {
+    'A': {'B': 2, 'C': 1},
+    'B': {'A': 2, 'C': 4, 'D': 1},
+    'C': {'A': 1, 'B': 4, 'D': 3},
+    'D': {'B': 1, 'C': 3}
+}
+start_vertex = 'A'
+print("Shortest distances:", dijkstra(graph, start_vertex))
+
